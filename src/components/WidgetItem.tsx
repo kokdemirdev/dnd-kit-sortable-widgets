@@ -24,11 +24,11 @@ const WidgetItem = ({ widget, enabledEditMode }: WidgetItemProps) => {
   };
 
   return (
-    <Grid size={widget.size}>
+    <Grid size={12}>
       <Box ref={setNodeRef} style={style}>
         <Card>
           <CardHeader
-            title={`Card ${widget.id}`}
+            title={widget.title}
             action={
               <CardActionContent
                 enabledEditMode={enabledEditMode}
