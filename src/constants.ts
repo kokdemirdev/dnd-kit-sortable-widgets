@@ -5,7 +5,9 @@ export interface IWidget {
   size: number;
   visible: boolean;
   title: string;
-  group: "left" | "right" | "bottom";
+  group: 'left' | 'right' | 'bottom';
+  lockVisible: boolean;
+  lockDragging: boolean;
 }
 
 export const defaultWidgets: IWidget[] = [
@@ -13,74 +15,81 @@ export const defaultWidgets: IWidget[] = [
     id: 1,
     size: 8,
     visible: true,
-    title: "Teslim Edilmeyi Bekleyen Siparişler",
-    group: "left"
+    title: 'Teslim Edilmeyi Bekleyen Siparişler',
+    group: 'left',
+    lockVisible: true,
+    lockDragging: true,
   },
   {
     id: 2,
     size: 4,
     visible: true,
-    title: "Duyurularım",
-    group: "right"
+    title: 'Duyurularım',
+    group: 'right',
+    lockVisible: true,
+    lockDragging: false,
   },
   {
     id: 3,
     size: 8,
     visible: true,
-    title: "Haftalık Hak Ediş Tablosu",
-    group: "left"
+    title: 'Haftalık Hak Ediş Tablosu',
+    group: 'left',
+    lockVisible: false,
+    lockDragging: false,
   },
   {
     id: 4,
     size: 4,
     visible: true,
-    title: "Satış Performansı",
-    group: "right"
+    title: 'Satış Performansı',
+    group: 'right',
+    lockVisible: true,
+    lockDragging: false,
   },
   {
     id: 5,
     size: 12,
     visible: true,
-    title: "Ürün Listesi Tablosu",
-    group: "bottom"
+    title: 'Ürün Listesi Tablosu',
+    group: 'bottom',
+    lockVisible: false,
+    lockDragging: false,
   },
   {
     id: 6,
     size: 12,
     visible: true,
-    title: "Kritik Stok Durum Tablosu",
-    group: "bottom"
+    title: 'Kritik Stok Durum Tablosu',
+    group: 'bottom',
+    lockVisible: false,
+    lockDragging: false,
   },
   {
     id: 7,
     size: 12,
     visible: true,
-    title: "İade Edilen Sipariş Tablosu",
-    group: "bottom"
+    title: 'İade Edilen Sipariş Tablosu',
+    group: 'bottom',
+    lockVisible: false,
+    lockDragging: false,
   },
   {
     id: 8,
     size: 12,
     visible: true,
-    title: "Ürün Tablosu",
-    group: "bottom"
+    title: 'Ürün Tablosu',
+    group: 'bottom',
+    lockVisible: false,
+    lockDragging: false,
   },
   {
     id: 9,
     size: 12,
     visible: true,
-    title: "Haftanın Görüntülenen Ürünleri",
-    group: "bottom"
+    title: 'Haftanın Görüntülenen Ürünleri',
+    group: 'bottom',
+    lockVisible: false,
+    lockDragging: false,
   },
 ];
-
-export const generatedWidgets: IWidget[] = Array.from({ length: 20 }).map(
-  (_, index) => {
-    return {
-      id: index + 1,
-      size: index % 2 === 0 ? 8 : 4,
-      visible: true,
-      title: `${index + 1}. Widget Title`,
-    };
-  }
-);

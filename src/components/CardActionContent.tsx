@@ -6,27 +6,33 @@ import { IWidget } from '../constants.ts';
 const ActionContent = ({
   enabledEditMode,
   widget,
+  handleToggleVisible,
 }: {
   enabledEditMode: boolean;
   widget: IWidget;
+  handleToggleVisible: (id: number) => void;
 }) => {
   const { attributes, listeners } = useSortable({ id: widget.id });
 
-  return enabledEditMode ? (
+  return enabledEditMode && (!widget.lockVisible || !widget.lockDragging) ? (
     <Box display="flex" alignItems="center">
-      <IconButton aria-label="expand">
-        {widget.visible ? <Visibility /> : <VisibilityOff />}
-      </IconButton>
-      {/* Drag Button */}
-      <IconButton
-        aria-label="drag"
-        style={{ cursor: 'move' }}
-        {...attributes}
-        {...listeners}
-      >
-        <DragIndicator />
-      </IconButton>
       {/* Show/Hide Button */}
+      {!widget.lockVisible && (
+        <IconButton onClick={() => handleToggleVisible(widget.id)}>
+          {widget.visible ? <Visibility /> : <VisibilityOff />}
+        </IconButton>
+      )}
+      {/* Drag Button */}
+      {!widget.lockDragging && (
+        <IconButton
+          aria-label="drag"
+          style={{ cursor: 'move' }}
+          {...attributes}
+          {...listeners}
+        >
+          <DragIndicator />
+        </IconButton>
+      )}
     </Box>
   ) : null;
 };

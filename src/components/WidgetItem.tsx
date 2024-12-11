@@ -13,11 +13,21 @@ import { CSS } from '@dnd-kit/utilities';
 export interface WidgetItemProps {
   widget: IWidget;
   enabledEditMode: boolean;
+  handleToggleVisible: (id: number) => void;
 }
 
-const WidgetItem = ({ widget, enabledEditMode }: WidgetItemProps) => {
-  const { setNodeRef, transform, transition } = useSortable({ id: widget.id });
+const WidgetItem = ({
+  widget,
+  enabledEditMode,
+  handleToggleVisible,
+}: WidgetItemProps) => {
+  // useSortable hook'u ile öğeyi sortable hale getirmek
+  const { setNodeRef, transform, transition } = useSortable({
+    id: widget.id,
+    disabled: widget.lockDragging, // lockDragging özelliği taşınabilirliği kontrol eder
+  });
 
+  // Transform ve transition değerlerini stil objesine ekliyoruz
   const style: any = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -33,11 +43,12 @@ const WidgetItem = ({ widget, enabledEditMode }: WidgetItemProps) => {
               <CardActionContent
                 enabledEditMode={enabledEditMode}
                 widget={widget}
+                handleToggleVisible={handleToggleVisible}
               />
             }
           />
           <CardContent>
-            {/* Kartın içeriği buraya gelecek */}
+            {/* Kartın içeriği */}
             İçerik burada.
           </CardContent>
         </Card>
