@@ -97,7 +97,6 @@ const Dashboard = () => {
   );
 
   const handleToggleVisible = useCallback((id: number) => {
-    console.log('handleToggleVisible');
     setDraftWidgets((prevItems) =>
       prevItems.map((item) =>
         item.id === id ? { ...item, visible: !item.visible } : item
