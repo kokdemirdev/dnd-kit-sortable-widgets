@@ -35,9 +35,9 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { coordinateGetter as multipleContainersCoordinateGetter } from './multipleContainersKeyboardCoordinates';
 
-import { Item, Container, ContainerProps } from '../../components';
+import { Item, Container, ContainerProps } from './components';
 
-import { createRange } from '../../utilities';
+import { createRange } from './utilities';
 
 export default {
   title: 'Presets/Sortable/Multiple Containers',
@@ -47,14 +47,14 @@ const animateLayoutChanges: AnimateLayoutChanges = (args) =>
   defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 
 function DroppableContainer({
-                              children,
-                              columns = 1,
-                              disabled,
-                              id,
-                              items,
-                              style,
-                              ...props
-                            }: ContainerProps & {
+  children,
+  columns = 1,
+  disabled,
+  id,
+  items,
+  style,
+  ...props
+}: ContainerProps & {
   disabled?: boolean;
   id: UniqueIdentifier;
   items: UniqueIdentifier[];
@@ -79,7 +79,7 @@ function DroppableContainer({
   });
   const isOverContainer = over
     ? (id === over.id && active?.data.current?.type !== 'container') ||
-    items.includes(over.id)
+      items.includes(over.id)
     : false;
 
   return (
@@ -152,24 +152,24 @@ const PLACEHOLDER_ID = 'placeholder';
 const empty: UniqueIdentifier[] = [];
 
 export function MultipleContainers({
-                                     adjustScale = false,
-                                     itemCount = 3,
-                                     cancelDrop,
-                                     columns,
-                                     handle = false,
-                                     items: initialItems,
-                                     containerStyle,
-                                     coordinateGetter = multipleContainersCoordinateGetter,
-                                     getItemStyles = () => ({}),
-                                     wrapperStyle = () => ({}),
-                                     minimal = false,
-                                     modifiers,
-                                     renderItem,
-                                     strategy = verticalListSortingStrategy,
-                                     trashable = false,
-                                     vertical = false,
-                                     scrollable,
-                                   }: Props) {
+  adjustScale = false,
+  itemCount = 3,
+  cancelDrop,
+  columns,
+  handle = false,
+  items: initialItems,
+  containerStyle,
+  coordinateGetter = multipleContainersCoordinateGetter,
+  getItemStyles = () => ({}),
+  wrapperStyle = () => ({}),
+  minimal = false,
+  modifiers,
+  renderItem,
+  strategy = verticalListSortingStrategy,
+  trashable = false,
+  vertical = false,
+  scrollable,
+}: Props) {
   const [items, setItems] = useState<Items>(
     () =>
       initialItems ?? {
@@ -177,10 +177,10 @@ export function MultipleContainers({
         B: createRange(itemCount, (index) => `B${index + 1}`),
         C: createRange(itemCount, (index) => `C${index + 1}`),
         D: createRange(itemCount, (index) => `D${index + 1}`),
-      },
+      }
   );
   const [containers, setContainers] = useState(
-    Object.keys(items) as UniqueIdentifier[],
+    Object.keys(items) as UniqueIdentifier[]
   );
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const lastOverId = useRef<UniqueIdentifier | null>(null);
@@ -202,7 +202,7 @@ export function MultipleContainers({
         return closestCenter({
           ...args,
           droppableContainers: args.droppableContainers.filter(
-            (container) => container.id in items,
+            (container) => container.id in items
           ),
         });
       }
@@ -212,7 +212,7 @@ export function MultipleContainers({
       const intersections =
         pointerIntersections.length > 0
           ? // If there are droppables intersecting with the pointer, return those
-          pointerIntersections
+            pointerIntersections
           : rectIntersection(args);
       let overId = getFirstCollision(intersections, 'id');
 
@@ -234,7 +234,7 @@ export function MultipleContainers({
               droppableContainers: args.droppableContainers.filter(
                 (container) =>
                   container.id !== overId &&
-                  containerItems.includes(container.id),
+                  containerItems.includes(container.id)
               ),
             })[0]?.id;
           }
@@ -256,7 +256,7 @@ export function MultipleContainers({
       // If no droppable is matched, return the last match
       return lastOverId.current ? [{ id: lastOverId.current }] : [];
     },
-    [activeId, items],
+    [activeId, items]
   );
   const [clonedItems, setClonedItems] = useState<Items | null>(null);
   const sensors = useSensors(
@@ -264,7 +264,7 @@ export function MultipleContainers({
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter,
-    }),
+    })
   );
   const findContainer = (id: UniqueIdentifier) => {
     if (id in items) {
@@ -346,7 +346,7 @@ export function MultipleContainers({
                 over &&
                 active.rect.current.translated &&
                 active.rect.current.translated.top >
-                over.rect.top + over.rect.height;
+                  over.rect.top + over.rect.height;
 
               const modifier = isBelowOverItem ? 1 : 0;
 
@@ -359,14 +359,14 @@ export function MultipleContainers({
             return {
               ...items,
               [activeContainer]: items[activeContainer].filter(
-                (item) => item !== active.id,
+                (item) => item !== active.id
               ),
               [overContainer]: [
                 ...items[overContainer].slice(0, newIndex),
                 items[activeContainer][activeIndex],
                 ...items[overContainer].slice(
                   newIndex,
-                  items[overContainer].length,
+                  items[overContainer].length
                 ),
               ],
             };
@@ -401,7 +401,7 @@ export function MultipleContainers({
           setItems((items) => ({
             ...items,
             [activeContainer]: items[activeContainer].filter(
-              (id) => id !== activeId,
+              (id) => id !== activeId
             ),
           }));
           setActiveId(null);
@@ -416,7 +416,7 @@ export function MultipleContainers({
             setItems((items) => ({
               ...items,
               [activeContainer]: items[activeContainer].filter(
-                (id) => id !== activeId,
+                (id) => id !== activeId
               ),
               [newContainerId]: [active.id],
             }));
@@ -437,7 +437,7 @@ export function MultipleContainers({
               [overContainer]: arrayMove(
                 items[overContainer],
                 activeIndex,
-                overIndex,
+                overIndex
               ),
             }));
           }
@@ -518,7 +518,7 @@ export function MultipleContainers({
               : renderSortableItemDragOverlay(activeId)
             : null}
         </DragOverlay>,
-        document.body,
+        document.body
       )}
       {trashable && activeId && !containers.includes(activeId) ? (
         <Trash id={TRASH_ID} />
@@ -584,7 +584,7 @@ export function MultipleContainers({
 
   function handleRemove(containerID: UniqueIdentifier) {
     setContainers((containers) =>
-      containers.filter((id) => id !== containerID),
+      containers.filter((id) => id !== containerID)
     );
   }
 
@@ -668,16 +668,16 @@ interface SortableItemProps {
 }
 
 function SortableItem({
-                        disabled,
-                        id,
-                        index,
-                        handle,
-                        renderItem,
-                        style,
-                        containerId,
-                        getIndex,
-                        wrapperStyle,
-                      }: SortableItemProps) {
+  disabled,
+  id,
+  index,
+  handle,
+  renderItem,
+  style,
+  containerId,
+  getIndex,
+  wrapperStyle,
+}: SortableItemProps) {
   const {
     setNodeRef,
     setActivatorNodeRef,

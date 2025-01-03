@@ -1,3 +1,5 @@
+import { MultipleContainers } from './sortable/MultipleContainers.tsx';
+
 export default function App() {
-  return <div>Hello World</div>;
+  return <MultipleContainers handle />;
 }

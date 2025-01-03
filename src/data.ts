@@ -1,6 +1,6 @@
-export type UniqueIdentifier = string | number;
+export type UniqueIdentifier = string;
 
-export interface ITransformedWidget {
+export interface IWidget {
   id: string; // BE verisi ile bu id üzerinden eşleşiyor.
   visible: boolean; // Görünürlük verisi
   title: string; // Pratikte bir işe yaramıyor, sadece geliştirme yaparken IDleri akılda tutmamak için bu veri eklendi.
@@ -14,7 +14,7 @@ export interface ITransformedWidget {
   row: number;
 }
 
-export const defaultWidgets: ITransformedWidget[] = [
+export const defaultWidgets: IWidget[] = [
   {
     id: '1',
     visible: true,
