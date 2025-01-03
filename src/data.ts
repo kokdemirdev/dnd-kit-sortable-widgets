@@ -1,3 +1,5 @@
+export type UniqueIdentifier = string | number;
+
 export interface ITransformedWidget {
   id: string; // BE verisi ile bu id üzerinden eşleşiyor.
   visible: boolean; // Görünürlük verisi
