@@ -21,13 +21,11 @@ const WidgetItem = ({
   enabledEditMode,
   handleToggleVisible,
 }: WidgetItemProps) => {
-  // useSortable hook'u ile öğeyi sortable hale getirmek
   const { setNodeRef, transform, transition } = useSortable({
     id: widget.id,
-    disabled: widget.lockDragging, // lockDragging özelliği taşınabilirliği kontrol eder
+    disabled: widget.lockDragging,
   });
 
-  // Transform ve transition değerlerini stil objesine ekliyoruz
   const style: any = {
     transform: CSS.Transform.toString(transform),
     transition,

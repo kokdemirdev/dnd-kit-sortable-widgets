@@ -5,7 +5,7 @@ export interface IWidget {
   size: number;
   visible: boolean;
   title: string;
-  group: 'left' | 'right' | 'bottom';
+  group: 1 | 2;
   lockVisible: boolean;
   lockDragging: boolean;
 }
@@ -16,7 +16,7 @@ export const defaultWidgets: IWidget[] = [
     size: 8,
     visible: true,
     title: 'Teslim Edilmeyi Bekleyen Siparişler',
-    group: 'left',
+    group: 1,
     lockVisible: true,
     lockDragging: true,
   },
@@ -25,7 +25,7 @@ export const defaultWidgets: IWidget[] = [
     size: 4,
     visible: true,
     title: 'Duyurularım',
-    group: 'right',
+    group: 2,
     lockVisible: true,
     lockDragging: false,
   },
@@ -34,7 +34,7 @@ export const defaultWidgets: IWidget[] = [
     size: 8,
     visible: true,
     title: 'Haftalık Hak Ediş Tablosu',
-    group: 'left',
+    group: 1,
     lockVisible: false,
     lockDragging: false,
   },
@@ -43,7 +43,7 @@ export const defaultWidgets: IWidget[] = [
     size: 4,
     visible: true,
     title: 'Satış Performansı',
-    group: 'right',
+    group: 2,
     lockVisible: true,
     lockDragging: false,
   },
@@ -52,7 +52,7 @@ export const defaultWidgets: IWidget[] = [
     size: 12,
     visible: true,
     title: 'Ürün Listesi Tablosu',
-    group: 'bottom',
+    group: 1,
     lockVisible: false,
     lockDragging: false,
   },
@@ -61,7 +61,7 @@ export const defaultWidgets: IWidget[] = [
     size: 12,
     visible: true,
     title: 'Kritik Stok Durum Tablosu',
-    group: 'bottom',
+    group: 1,
     lockVisible: false,
     lockDragging: false,
   },
@@ -70,7 +70,7 @@ export const defaultWidgets: IWidget[] = [
     size: 12,
     visible: true,
     title: 'İade Edilen Sipariş Tablosu',
-    group: 'bottom',
+    group: 1,
     lockVisible: false,
     lockDragging: false,
   },
@@ -79,7 +79,7 @@ export const defaultWidgets: IWidget[] = [
     size: 12,
     visible: true,
     title: 'Ürün Tablosu',
-    group: 'bottom',
+    group: 1,
     lockVisible: false,
     lockDragging: false,
   },
@@ -88,7 +88,7 @@ export const defaultWidgets: IWidget[] = [
     size: 12,
     visible: true,
     title: 'Haftanın Görüntülenen Ürünleri',
-    group: 'bottom',
+    group: 1,
     lockVisible: false,
     lockDragging: false,
   },

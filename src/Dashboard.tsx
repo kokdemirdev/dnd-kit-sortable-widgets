@@ -24,13 +24,13 @@ const Dashboard = () => {
   }, [draftWidgets, enabledEditMode, widgets]);
 
   const leftCalculatedWidgets = useMemo(() => {
-    return calculatedWidgets.filter((i) => i.group === 'left');
+    return calculatedWidgets.filter((i) => i.group === 1).slice(0, 2);
   }, [calculatedWidgets]);
   const rightCalculatedWidgets = useMemo(() => {
-    return calculatedWidgets.filter((i) => i.group === 'right');
+    return calculatedWidgets.filter((i) => i.group === 2);
   }, [calculatedWidgets]);
   const bottomCalculatedWidgets = useMemo(() => {
-    return calculatedWidgets.filter((i) => i.group === 'bottom');
+    return calculatedWidgets.filter((i) => i.group === 1).slice(2);
   }, [calculatedWidgets]);
 
   // Callback Functions
@@ -61,35 +61,16 @@ const Dashboard = () => {
         const activeWidget = draftWidgets[oldIndex];
         const overWidget = draftWidgets[newIndex];
 
-        // Check if we are dragging between Left and Bottom groups
-        if (
-          (activeWidget.group === 'left' && overWidget.group === 'bottom') ||
-          (activeWidget.group === 'bottom' && overWidget.group === 'left')
-        ) {
-          // Allow dragging between left and bottom
-          const updatedWidgets = [...draftWidgets];
-          updatedWidgets[oldIndex] = {
-            ...activeWidget,
-            group: overWidget.group,
-          };
-          setDraftWidgets(updatedWidgets);
-        } else if (
-          activeWidget.group !== 'right' &&
-          overWidget.group !== 'right'
-        ) {
-          // If not dragging within the 'right' group, just reorder within the same group
+        // Grupları sayısal olarak değerlendiriyoruz
+        const activeGroup = activeWidget.group;
+        const overGroup = overWidget.group;
+
+        if (activeGroup === overGroup) {
+          // Aynı grup ise izin ver.
           setDraftWidgets(arrayMove(draftWidgets, oldIndex, newIndex));
-        } else if (
-          activeWidget.group === 'right' &&
-          overWidget.group === 'right'
-        ) {
-          // In right group
-          setDraftWidgets(arrayMove(draftWidgets, oldIndex, newIndex));
-        }
-        // If we're trying to move a widget into the 'right' group, do nothing
-        else {
-          // Prevent adding/removing items from 'right'
-          alert('Cannot move widget to "Right" group!');
+        } else {
+          // Farklı gruplar arasında taşımaya izin verme
+          alert('Cannot move widgets between different groups!');
         }
       }
     },
@@ -120,11 +101,11 @@ const Dashboard = () => {
         <Box>
           <Grid container spacing={2}>
             <Grid size={8}>
-              <SortableContext
-                items={leftCalculatedWidgets.concat(bottomCalculatedWidgets)} // Left and Bottom combined for dragging
-                strategy={rectSortingStrategy}
-              >
-                <Grid container spacing={2}>
+              <Grid container spacing={2}>
+                <SortableContext
+                  items={leftCalculatedWidgets.concat(bottomCalculatedWidgets)} // Left and Bottom combined for dragging
+                  strategy={rectSortingStrategy}
+                >
                   {leftCalculatedWidgets.map((widget: IWidget) => (
                     <WidgetItem
                       key={widget.id}
@@ -133,8 +114,8 @@ const Dashboard = () => {
                       handleToggleVisible={handleToggleVisible}
                     />
                   ))}
-                </Grid>
-              </SortableContext>
+                </SortableContext>
+              </Grid>
             </Grid>
             <Grid size={4}>
               <SortableContext
