@@ -622,7 +622,6 @@ function getColor(id: UniqueIdentifier) {
 
   return undefined;
 }
-
 function Trash({ id }: { id: UniqueIdentifier }) {
   const { setNodeRef, isOver } = useDroppable({
     id,
@@ -650,7 +649,6 @@ function Trash({ id }: { id: UniqueIdentifier }) {
     </div>
   );
 }
-
 interface SortableItemProps {
   containerId: UniqueIdentifier;
   id: UniqueIdentifier;
@@ -721,7 +719,6 @@ function SortableItem({
     />
   );
 }
-
 function useMountStatus() {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -733,3 +730,6 @@ function useMountStatus() {
 
   return isMounted;
 }
+
+
+
