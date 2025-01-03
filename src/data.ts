@@ -1,5 +1,5 @@
 export interface ITransformedWidget {
-  id: number; // BE verisi ile bu id üzerinden eşleşiyor.
+  id: string; // BE verisi ile bu id üzerinden eşleşiyor.
   visible: boolean; // Görünürlük verisi
   title: string; // Pratikte bir işe yaramıyor, sadece geliştirme yaparken IDleri akılda tutmamak için bu veri eklendi.
   group: number; // Ekranda ki grubu
@@ -9,11 +9,12 @@ export interface ITransformedWidget {
   checkStaticPermission: boolean; // Statik olarak görünüm mantığı eklenmiş koda. Kontrol edilmeli mi verisi.
   staticPermission: boolean; // Statik yetkinin değeri
   openContainerTooltip: boolean;
+  row: number;
 }
 
 export const defaultWidgets: ITransformedWidget[] = [
   {
-    id: 1,
+    id: '1',
     visible: true,
     title: 'Ürün Listesi Tablosu',
     group: 1,
@@ -22,10 +23,11 @@ export const defaultWidgets: ITransformedWidget[] = [
     lockDragging: false,
     checkStaticPermission: true,
     staticPermission: false,
-    openContainerTooltip: false
+    openContainerTooltip: false,
+    row: 10,
   },
   {
-    id: 2,
+    id: '2',
     visible: true,
     title: 'Kritik Stok Durum Tablosu',
     group: 1,
@@ -34,10 +36,11 @@ export const defaultWidgets: ITransformedWidget[] = [
     lockDragging: false,
     checkStaticPermission: true,
     staticPermission: false,
-    openContainerTooltip: false
+    openContainerTooltip: false,
+    row: 5,
   },
   {
-    id: 3,
+    id: '3',
     visible: true,
     title: 'İade Edilen Sipariş Tablosu',
     group: 1,
@@ -46,10 +49,11 @@ export const defaultWidgets: ITransformedWidget[] = [
     lockDragging: false,
     checkStaticPermission: true,
     staticPermission: false,
-    openContainerTooltip: false
+    openContainerTooltip: false,
+    row: 10,
   },
   {
-    id: 4,
+    id: '4',
     visible: true,
     title: 'Haftanın Satan Ürünleri',
     group: 1,
@@ -58,10 +62,11 @@ export const defaultWidgets: ITransformedWidget[] = [
     lockDragging: false,
     checkStaticPermission: true,
     staticPermission: false,
-    openContainerTooltip: false
+    openContainerTooltip: false,
+    row: 10,
   },
   {
-    id: 5,
+    id: '5',
     visible: true,
     title: 'Haftanın İade Edilen Ürünleri',
     group: 1,
@@ -70,10 +75,11 @@ export const defaultWidgets: ITransformedWidget[] = [
     lockDragging: false,
     checkStaticPermission: true,
     staticPermission: false,
-    openContainerTooltip: false
+    openContainerTooltip: false,
+    row: 10,
   },
   {
-    id: 6,
+    id: '6',
     visible: true,
     title: 'Duyurularım',
     group: 2,
@@ -82,10 +88,11 @@ export const defaultWidgets: ITransformedWidget[] = [
     lockDragging: false,
     checkStaticPermission: false,
     staticPermission: false,
-    openContainerTooltip: false
+    openContainerTooltip: false,
+    row: 10,
   },
   {
-    id: 7,
+    id: '7',
     visible: true,
     title: 'Satış Performansı',
     group: 2,
@@ -94,6 +101,7 @@ export const defaultWidgets: ITransformedWidget[] = [
     lockDragging: false,
     checkStaticPermission: true,
     staticPermission: false,
-    openContainerTooltip: false
+    openContainerTooltip: false,
+    row: 10,
   },
 ];
