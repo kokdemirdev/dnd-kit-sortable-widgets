@@ -1,58 +1,38 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid2 as Grid,
-} from '@mui/material';
-import CardActionContent from './CardActionContent.tsx';
+import { Card, CardHeader, IconButton, Stack } from '@mui/material';
 import { IWidget } from '../constants.ts';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { Visibility, VisibilityOff, DragIndicator } from '@mui/icons-material';
+import { useDashboardLayout } from '../DashboardLayoutContext.tsx';
 
-export interface WidgetItemProps {
+interface IProps {
   widget: IWidget;
-  enabledEditMode: boolean;
-  handleToggleVisible: (id: number) => void;
 }
 
-const WidgetItem = ({
-  widget,
-  enabledEditMode,
-  handleToggleVisible,
-}: WidgetItemProps) => {
-  const { setNodeRef, transform, transition } = useSortable({
-    id: widget.id,
-    disabled: widget.lockDragging,
-  });
-
-  const style: any = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
+export default function WidgetItem({ widget }: IProps) {
+  const { isEditing, toggleVisibilityItemById } = useDashboardLayout();
 
   return (
-    <Grid size={12}>
-      <Box ref={setNodeRef} style={style}>
-        <Card>
-          <CardHeader
-            title={widget.title}
-            action={
-              <CardActionContent
-                enabledEditMode={enabledEditMode}
-                widget={widget}
-                handleToggleVisible={handleToggleVisible}
-              />
-            }
-          />
-          <CardContent>
-            {/* Kartın içeriği */}
-            İçerik burada.
-          </CardContent>
-        </Card>
-      </Box>
-    </Grid>
+    <Card>
+      <CardHeader
+        title={widget.title}
+        action={
+          isEditing ? (
+            <Stack direction="row">
+              {!widget.lockVisible && (
+                <IconButton onClick={() => toggleVisibilityItemById(widget.id)}>
+                  {widget.visible ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              )}
+              {!widget.lockDragging && (
+                <IconButton sx={{ cursor: 'move' }}>
+                  <DragIndicator />
+                </IconButton>
+              )}
+            </Stack>
+          ) : (
+            <></>
+          )
+        }
+      />
+    </Card>
   );
-};
-
-export default WidgetItem;
+}

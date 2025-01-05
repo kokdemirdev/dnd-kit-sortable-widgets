@@ -10,6 +10,12 @@ export interface IWidget {
   lockDragging: boolean;
 }
 
+export interface IGroupedWidget {
+  left: IWidget[];
+  right: IWidget[];
+  bottom: IWidget[];
+}
+
 export const defaultWidgets: IWidget[] = [
   {
     id: 1,
