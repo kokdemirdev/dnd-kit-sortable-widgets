@@ -8,23 +8,27 @@ import React, {
   useCallback,
   useMemo,
 } from 'react';
-import { defaultWidgets, IGroupedWidget, IWidget } from './constants.ts';
+import {
+  calculateGroupedWidgets,
+  defaultWidgets,
+  IGroupedWidget,
+  toggleVisibility,
+  wait,
+} from './constants.ts';
 import { DragEndEvent } from '@dnd-kit/core';
-import { wait } from './utils.ts';
 
 interface DashboardLayoutContextType {
   loading: boolean;
   isEditing: boolean;
   setIsEditing: Dispatch<SetStateAction<boolean>>;
-  widgets: IWidget[];
-  setWidgets: Dispatch<SetStateAction<IWidget[]>>;
-  draftWidgets: IWidget[];
-  setDraftWidgets: Dispatch<SetStateAction<IWidget[]>>;
+  widgets: IGroupedWidget;
+  setWidgets: Dispatch<SetStateAction<IGroupedWidget>>;
+  draftWidgets: IGroupedWidget;
+  setDraftWidgets: Dispatch<SetStateAction<IGroupedWidget>>;
   handleEdit: () => void;
   handleSave: () => Promise<void>;
   handleCancel: () => void;
-  calculatedWidgets: IWidget[];
-  groupedWidgets: IGroupedWidget;
+  calculatedWidgets: IGroupedWidget;
   toggleVisibilityItemById: (widgetId: number) => void;
   handleDragEnd: (event: DragEndEvent) => void;
 }
@@ -42,20 +46,17 @@ export const DashboardLayoutProvider: React.FC<
 > = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [widgets, setWidgets] = useState<IWidget[]>(defaultWidgets);
-  const [draftWidgets, setDraftWidgets] = useState<IWidget[]>(defaultWidgets);
+  const [widgets, setWidgets] = useState<IGroupedWidget>(
+    calculateGroupedWidgets(defaultWidgets)
+  );
+  const [draftWidgets, setDraftWidgets] = useState<IGroupedWidget>(
+    calculateGroupedWidgets(defaultWidgets)
+  );
 
-  const calculatedWidgets: IWidget[] = useMemo(() => {
-    return isEditing ? draftWidgets : widgets;
-  }, [draftWidgets, isEditing, widgets]);
-
-  const groupedWidgets: IGroupedWidget = useMemo(() => {
-    return {
-      left: calculatedWidgets.filter((i) => i.group === 1).slice(0, 3),
-      right: calculatedWidgets.filter((i) => i.group === 2),
-      bottom: calculatedWidgets.filter((i) => i.group === 1).slice(3),
-    };
-  }, [calculatedWidgets]);
+  const calculatedWidgets = useMemo(
+    () => (isEditing ? draftWidgets : widgets),
+    [draftWidgets, isEditing, widgets]
+  );
 
   const handleEdit = useCallback(() => {
     setIsEditing(true);
@@ -77,11 +78,11 @@ export const DashboardLayoutProvider: React.FC<
 
   const toggleVisibilityItemById = useCallback((widgetId: number) => {
     setDraftWidgets((prevState) => {
-      return prevState.map((item) => {
-        return item.id === widgetId
-          ? { ...item, visible: !item.visible }
-          : item;
-      });
+      return {
+        left: toggleVisibility(prevState.left, widgetId),
+        right: toggleVisibility(prevState.right, widgetId),
+        bottom: toggleVisibility(prevState.bottom, widgetId),
+      };
     });
   }, []);
 
@@ -102,10 +103,9 @@ export const DashboardLayoutProvider: React.FC<
         handleEdit,
         handleSave,
         handleCancel,
-        groupedWidgets,
-        calculatedWidgets,
         toggleVisibilityItemById,
         handleDragEnd,
+        calculatedWidgets
       }}
     >
       {children}

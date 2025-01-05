@@ -1,3 +1,5 @@
+import { UniqueIdentifier } from '@dnd-kit/core';
+
 export type VoidFunction = () => void;
 
 export interface IWidget {
@@ -14,6 +16,12 @@ export interface IGroupedWidget {
   left: IWidget[];
   right: IWidget[];
   bottom: IWidget[];
+}
+
+export interface IGroupedUniqueWidget {
+  left: UniqueIdentifier[];
+  right: UniqueIdentifier[];
+  bottom: UniqueIdentifier[];
 }
 
 export const defaultWidgets: IWidget[] = [
@@ -99,3 +107,23 @@ export const defaultWidgets: IWidget[] = [
     lockDragging: false,
   },
 ];
+
+export const wait = (ms: number): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export const calculateGroupedWidgets = (widgets: IWidget[]): IGroupedWidget => {
+  return {
+    left: widgets.filter((i) => i.group === 1).slice(0, 3),
+    right: widgets.filter((i) => i.group === 2),
+    bottom: widgets.filter((i) => i.group === 1).slice(3),
+  };
+};
+
+export const toggleVisibility = (widgets: IWidget[], widgetId: number) => {
+  return widgets.map((item) => {
+    return item.id === widgetId
+      ? { ...item, visible: !item.visible }
+      : item;
+  });
+}
