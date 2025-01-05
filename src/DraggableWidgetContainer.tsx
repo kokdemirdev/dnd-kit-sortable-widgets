@@ -2,7 +2,7 @@ import { Box, Grid2 } from '@mui/material';
 import WidgetItem from './components/WidgetItem.tsx';
 import { useDashboardLayout } from './DashboardLayoutContext.tsx';
 
-export default function GridContainer() {
+export default function DraggableWidgetContainer() {
   const { isEditing, groupedWidgets } = useDashboardLayout();
   return (
     <Box>

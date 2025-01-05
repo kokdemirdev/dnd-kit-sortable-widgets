@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useDashboardLayout } from './DashboardLayoutContext.tsx';
 import { Edit, Cancel, Save } from '@mui/icons-material';
-import GridContainer from './GridContainer.tsx';
+import DraggableWidgetContainer from './DraggableWidgetContainer.tsx';
 
 export default function Dashboard() {
   const { isEditing, handleEdit, handleSave, handleCancel, loading } =
@@ -42,7 +42,7 @@ export default function Dashboard() {
         )}
       </Stack>
       <Divider sx={{ my: 2 }} />
-      <GridContainer />
+      <DraggableWidgetContainer />
     </Container>
   );
 }
