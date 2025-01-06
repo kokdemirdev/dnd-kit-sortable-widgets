@@ -68,7 +68,16 @@ function App() {
 
     if (!isActiveAWidget) return;
 
-    // Im dropping a Task over another Task
+    // İkisinden biri true dönerse yasaklı, ikisi birden yada hiç biri right değilse geçecek.
+    if (
+      [
+        activeData?.widget.group === "right",
+        overData?.widget.group === "right",
+      ].filter((i) => i).length === 1
+    )
+      return;
+
+    // Im dropping a Widget over another Widget
     if (isActiveAWidget && isOverAWidget) {
       setWidgets((widgets) => {
         const activeIndex = widgets.findIndex((t) => t.id === activeId);
@@ -90,7 +99,7 @@ function App() {
 
     const isOverAColumn = overData?.type === "Column";
 
-    // Im dropping a Task over a column
+    // Im dropping a Widget over a group
     if (isActiveAWidget && isOverAColumn) {
       setWidgets((widgets) => {
         const activeIndex = widgets.findIndex((t) => t.id === activeId);
