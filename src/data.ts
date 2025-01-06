@@ -1,4 +1,5 @@
 import { IWidget, WidgetGroupId } from "./types.ts";
+import { randomNumber } from "./utils.ts";
 
 export const defaultWidgets: IWidget[] = [
   {
@@ -9,6 +10,7 @@ export const defaultWidgets: IWidget[] = [
     group: "left",
     lockVisible: true,
     lockDragging: true,
+    row: randomNumber(),
   },
   {
     id: "2",
@@ -18,6 +20,7 @@ export const defaultWidgets: IWidget[] = [
     group: "right",
     lockVisible: true,
     lockDragging: false,
+    row: randomNumber(),
   },
   {
     id: "3",
@@ -27,6 +30,7 @@ export const defaultWidgets: IWidget[] = [
     group: "left",
     lockVisible: false,
     lockDragging: false,
+    row: randomNumber(),
   },
   {
     id: "4",
@@ -36,6 +40,7 @@ export const defaultWidgets: IWidget[] = [
     group: "right",
     lockVisible: true,
     lockDragging: false,
+    row: randomNumber(),
   },
   {
     id: "5",
@@ -45,6 +50,7 @@ export const defaultWidgets: IWidget[] = [
     group: "bottom",
     lockVisible: false,
     lockDragging: false,
+    row: randomNumber(),
   },
   {
     id: "6",
@@ -54,6 +60,7 @@ export const defaultWidgets: IWidget[] = [
     group: "bottom",
     lockVisible: false,
     lockDragging: false,
+    row: randomNumber(),
   },
   {
     id: "7",
@@ -63,6 +70,7 @@ export const defaultWidgets: IWidget[] = [
     group: "bottom",
     lockVisible: false,
     lockDragging: false,
+    row: randomNumber(),
   },
   {
     id: "8",
@@ -72,6 +80,7 @@ export const defaultWidgets: IWidget[] = [
     group: "bottom",
     lockVisible: false,
     lockDragging: false,
+    row: randomNumber(),
   },
   {
     id: "9",
@@ -81,6 +90,7 @@ export const defaultWidgets: IWidget[] = [
     group: "bottom",
     lockVisible: false,
     lockDragging: false,
+    row: randomNumber(),
   },
 ];
 

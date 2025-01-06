@@ -1,5 +1,11 @@
 import { IWidget } from "../types.ts";
-import { Card, CardHeader, IconButton, styled } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  IconButton,
+  styled,
+} from "@mui/material";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { DragIndicator } from "@mui/icons-material";
@@ -74,6 +80,11 @@ export const Widget = ({ widget, isOverlay }: Props) => {
           </IconButton>
         }
       />
+      <CardContent>
+        {Array.from({ length: widget.row }).map((_, index) => (
+          <p>Lorem {index}</p>
+        ))}
+      </CardContent>
     </StyledCard>
   );
 };

@@ -13,7 +13,7 @@ export const WidgetContainer = ({ widgets, boxProps }: Props) => {
     return widgets.map((task) => task.id);
   }, [widgets]);
   return (
-    <Box {...boxProps}>
+    <Box bgcolor="aliceblue" p={2} {...boxProps}>
       <SortableContext items={widgetIds}>
         <Grid2 container spacing={2}>
           {widgets.map((widget) => (

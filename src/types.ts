@@ -10,4 +10,5 @@ export interface IWidget {
   group: WidgetGroupId;
   lockVisible: boolean;
   lockDragging: boolean;
+  row: number;
 }
